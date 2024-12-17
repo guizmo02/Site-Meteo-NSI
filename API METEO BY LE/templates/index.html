@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prévisions Météo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e8f5ff;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        main {
+            padding: 2rem;
+        }
+        table {
+            width: 90%;
+            margin: 2rem auto;
+            border-collapse: collapse;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+        th, td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #d9edf7;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prévisions Météo</h1>
+        <p>Les prévisions des villes enregistrées</p>
+    </header>
+    <main>
+        <h2 style="text-align: center;">Données Météorologiques</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ville</th>
+                    <th>Description</th>
+                    <th>Temp. Min (°C)</th>
+                    <th>Temp. Max (°C)</th>
+                    <th>Probabilité de Pluie (%)</th>
+                    <th>Vent (km/h)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ville, description, weather, tmin, tmax, probarain, wind10m in meteo_data %}
+                <tr>
+                    <td><a href="{{ url_for('ville_details', ville=ville) }}">{{ ville }}</a></td>
+                    <td><a href="{{ url_for('code_meteo_details', code=weather) }}">{{ description }}</a></td>
+                    <td>{{ tmin }}</td>
+                    <td>{{ tmax }}</td>
+                    <td>{{ probarain }}</td>
+                    <td>{{ wind10m }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>© 2024 Prévisions Météo - Données fournies par Météo Concept</p>
+    </footer>
+</body>
+</html>
+
